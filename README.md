@@ -53,3 +53,13 @@ npm install
 npm run dev
 ```
 Navigate to [http://localhost:3000](http://localhost:3000) in your browser.
+
+---
+
+## 📸 User Interface Preview
+
+### All Notifications Dashboard
+![All Notifications Dashboard](stage-2/screenshots/all_notifications.png)
+
+### Priority Inbox View
+![Priority Inbox View](stage-2/screenshots/priority_inbox.png)

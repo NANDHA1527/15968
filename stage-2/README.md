@@ -2,6 +2,14 @@
 
 This is a premium React web application built with TypeScript and Vite. It serves as a dashboard to view all campus notifications and a prioritized inbox, styled exclusively with **Material UI (MUI)**.
 
+## 📸 Screenshots
+
+### All Notifications Dashboard
+![All Notifications Dashboard](screenshots/all_notifications.png)
+
+### Priority Inbox View
+![Priority Inbox View](screenshots/priority_inbox.png)
+
 ## 📁 File Structure
 - `src/components/ErrorBoundary.tsx`: Custom Error Boundary handling UI rendering crashes.
 - `src/context/NotificationContext.tsx`: Context API managing state (loading, error, list mapping, and viewed notification indices).
