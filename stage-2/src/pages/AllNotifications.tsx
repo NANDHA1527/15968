@@ -149,6 +149,24 @@ export const AllNotifications: React.FC = () => {
                 color: '#ffffff',
                 '--DataGrid-rowBorderColor': 'rgba(255,255,255,0.06)',
                 '--DataGrid-containerBackground': 'transparent',
+                '& .MuiDataGrid-virtualScroller': {
+                  scrollBehavior: 'smooth',
+                  '&::-webkit-scrollbar': {
+                    width: '8px',
+                    height: '8px',
+                  },
+                  '&::-webkit-scrollbar-track': {
+                    background: 'rgba(255, 255, 255, 0.01)',
+                    borderRadius: '4px',
+                  },
+                  '&::-webkit-scrollbar-thumb': {
+                    background: 'rgba(255, 255, 255, 0.1)',
+                    borderRadius: '4px',
+                  },
+                  '&::-webkit-scrollbar-thumb:hover': {
+                    background: 'rgba(0, 229, 255, 0.4)',
+                  },
+                },
                 '& .MuiDataGrid-columnHeaders': {
                   background: 'rgba(255, 255, 255, 0.05)',
                   borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
