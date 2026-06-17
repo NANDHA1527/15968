@@ -6,64 +6,64 @@ import { Logger } from '../utils/logger';
 
 const MOCK_NOTIFICATIONS: RawNotification[] = [
   {
-    ID: "mock-1",
-    Type: "Placement",
-    Message: "Google India placement drive registration starts at 12:00 PM tomorrow.",
-    Timestamp: "2026-06-17 11:00:00"
-  },
-  {
-    ID: "mock-2",
+    ID: "d146095a-0d86-4a34-9e69-3900a14576bc",
     Type: "Result",
-    Message: "Mid-term examination grades for Computer Science (CS302) have been published.",
-    Timestamp: "2026-06-17 10:30:00"
+    Message: "mid-sem",
+    Timestamp: "2026-04-22 17:51:30"
   },
   {
-    ID: "mock-3",
-    Type: "Event",
-    Message: "Annual Tech Fest 'Innvobizz 2026' registration is now open.",
-    Timestamp: "2026-06-17 09:15:00"
-  },
-  {
-    ID: "mock-4",
+    ID: "b283218f-ea5a-4b7c-93a9-1f2f240d64b0",
     Type: "Placement",
-    Message: "Microsoft SWE Intern shortlist announced. Interview schedule attached.",
-    Timestamp: "2026-06-17 08:45:00"
+    Message: "CSX Corporation hiring",
+    Timestamp: "2026-04-22 17:51:18"
   },
   {
-    ID: "mock-5",
+    ID: "81589ada-0ad3-4f77-9554-f52fb558e09d",
+    Type: "Event",
+    Message: "farewell",
+    Timestamp: "2026-04-22 17:51:06"
+  },
+  {
+    ID: "0005513a-142b-4bbc-8678-eefec65e1ede",
     Type: "Result",
-    Message: "Practical Lab Examination marks for Software Engineering are declared.",
-    Timestamp: "2026-06-17 08:00:00"
+    Message: "mid-sem",
+    Timestamp: "2026-04-22 17:50:54"
   },
   {
-    ID: "mock-6",
-    Type: "Event",
-    Message: "Seminar on Artificial Intelligence and Ethics in Audi-1 today at 2 PM.",
-    Timestamp: "2026-06-16 16:30:00"
-  },
-  {
-    ID: "mock-7",
-    Type: "Placement",
-    Message: "Amazon applied intelligence hiring test link is active for 24 hours.",
-    Timestamp: "2026-06-16 14:00:00"
-  },
-  {
-    ID: "mock-8",
+    ID: "ea836726-c25e-4f21-a72f-544a6af8a37f",
     Type: "Result",
-    Message: "Re-evaluation results for Odd Semester 2025-2026 declared.",
-    Timestamp: "2026-06-16 11:30:00"
+    Message: "project-review",
+    Timestamp: "2026-04-22 17:50:42"
   },
   {
-    ID: "mock-9",
+    ID: "003cb427-8fc6-47f7-bb00-be228f6b0d2c",
+    Type: "Result",
+    Message: "external",
+    Timestamp: "2026-04-22 17:50:30"
+  },
+  {
+    ID: "e5c4ff20-31bf-4d40-8f02-72fda59e8918",
+    Type: "Result",
+    Message: "project-review",
+    Timestamp: "2026-04-22 17:50:18"
+  },
+  {
+    ID: "1cfce5ee-ad37-4894-8946-d707627176a5",
     Type: "Event",
-    Message: "Sports Day registrations deadline extended to next Friday.",
-    Timestamp: "2026-06-15 10:00:00"
+    Message: "tech-fest",
+    Timestamp: "2026-04-22 17:50:06"
   },
   {
-    ID: "mock-10",
+    ID: "cf2885a6-45ac-4ba0-b548-6e9e9d4c52c8",
+    Type: "Result",
+    Message: "project-review",
+    Timestamp: "2026-04-22 17:49:54"
+  },
+  {
+    ID: "8a7412bd-6065-4d09-8501-a37f11cc848b",
     Type: "Placement",
-    Message: "Cognizant GenC onboarding instructions emailed to selected candidates.",
-    Timestamp: "2026-06-15 09:00:00"
+    Message: "Advanced Micro Devices Inc. hiring",
+    Timestamp: "2026-04-22 17:49:42"
   }
 ];
 
