@@ -1,0 +1,11 @@
+{
+  "name": "afford-medical-assessment-root",
+  "version": "1.0.0",
+  "description": "Root orchestrator for Afford Medical Technologies Assessment solution",
+  "private": true,
+  "scripts": {
+    "install:all": "npm install --prefix stage-1 && npm install --prefix stage-2 --legacy-peer-deps",
+    "dev": "npm run dev --prefix stage-2",
+    "start:cli": "npm start --prefix stage-1"
+  }
+}
