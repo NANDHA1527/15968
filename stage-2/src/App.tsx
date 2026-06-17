@@ -32,18 +32,18 @@ const theme = createTheme({
   palette: {
     mode: 'dark',
     primary: {
-      main: '#00e5ff', // cyan
+      main: '#0ea5e9', // Sky blue - highly professional & modern corporate accent
     },
     secondary: {
-      main: '#e91e63', // pink
+      main: '#0d9488', // Teal
     },
     background: {
-      default: '#0a0e17', // dark navy blue
-      paper: '#121824',
+      default: '#0f172a', // Slate 900 - sleek dark mode base
+      paper: '#1e293b',   // Slate 800 - distinct card base
     },
     text: {
-      primary: '#ffffff',
-      secondary: 'rgba(255, 255, 255, 0.7)',
+      primary: '#f8fafc', // slate-50 (off-white)
+      secondary: '#94a3b8', // slate-400 (cool gray)
     },
   },
   typography: {
@@ -53,7 +53,7 @@ const theme = createTheme({
     MuiCssBaseline: {
       styleOverrides: {
         body: {
-          background: 'linear-gradient(135deg, #0a0e17 0%, #161f38 100%)',
+          background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)',
           minHeight: '100vh',
           backgroundAttachment: 'fixed',
         },
@@ -62,8 +62,9 @@ const theme = createTheme({
   },
 });
 
-export default function App() {
+const NavigationLayout: React.FC = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const location = useLocation();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   const handleDrawerToggle = () => {
@@ -71,10 +72,13 @@ export default function App() {
     setMobileOpen(!mobileOpen);
   };
 
+  const isAllSelected = location.pathname === '/' || location.pathname === '';
+  const isPrioritySelected = location.pathname === '/priority';
+
   const drawer = (
     <Box sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
       <Toolbar sx={{ justifyContent: 'center', py: 2 }}>
-        <Typography variant="h6" noWrap component="div" sx={{ fontWeight: 'bold', color: '#00e5ff', letterSpacing: 0.5 }}>
+        <Typography variant="h6" noWrap component="div" sx={{ fontWeight: 'bold', color: '#0ea5e9', letterSpacing: 0.5 }}>
           Afford Medical
         </Typography>
       </Toolbar>
@@ -84,20 +88,25 @@ export default function App() {
           <ListItemButton
             component={Link}
             to="/"
+            selected={isAllSelected}
             onClick={() => {
               if (isMobile) setMobileOpen(false);
               loggingMiddleware.logClick('nav-all-notifications-btn');
             }}
             sx={{
               borderRadius: '8px',
-              '&:hover': { background: 'rgba(0, 229, 255, 0.08)' },
-              '&.Mui-selected': { background: 'rgba(0, 229, 255, 0.15)' }
+              '&:hover': { background: 'rgba(14, 165, 233, 0.08)' },
+              '&.Mui-selected': { 
+                background: 'rgba(14, 165, 233, 0.15)',
+                color: '#0ea5e9',
+                '& .MuiListItemIcon-root': { color: '#0ea5e9' }
+              }
             }}
           >
             <ListItemIcon sx={{ minWidth: 40 }}>
-              <ListAltIcon sx={{ color: '#00e5ff' }} />
+              <ListAltIcon sx={{ color: isAllSelected ? '#0ea5e9' : 'text.secondary' }} />
             </ListItemIcon>
-            <ListItemText primary="All Notifications" primaryTypographyProps={{ fontWeight: '500' }} />
+            <ListItemText primary="All Notifications" primaryTypographyProps={{ fontWeight: isAllSelected ? '600' : '500' }} />
           </ListItemButton>
         </ListItem>
 
@@ -105,20 +114,25 @@ export default function App() {
           <ListItemButton
             component={Link}
             to="/priority"
+            selected={isPrioritySelected}
             onClick={() => {
               if (isMobile) setMobileOpen(false);
               loggingMiddleware.logClick('nav-priority-inbox-btn');
             }}
             sx={{
               borderRadius: '8px',
-              '&:hover': { background: 'rgba(0, 229, 255, 0.08)' },
-              '&.Mui-selected': { background: 'rgba(0, 229, 255, 0.15)' }
+              '&:hover': { background: 'rgba(250, 180, 77, 0.08)' },
+              '&.Mui-selected': { 
+                background: 'rgba(250, 180, 77, 0.15)',
+                color: '#ffb74d',
+                '& .MuiListItemIcon-root': { color: '#ffb74d' }
+              }
             }}
           >
             <ListItemIcon sx={{ minWidth: 40 }}>
-              <StarBorderIcon sx={{ color: '#ffb74d' }} />
+              <StarBorderIcon sx={{ color: isPrioritySelected ? '#ffb74d' : 'text.secondary' }} />
             </ListItemIcon>
-            <ListItemText primary="Priority Inbox" primaryTypographyProps={{ fontWeight: '500' }} />
+            <ListItemText primary="Priority Inbox" primaryTypographyProps={{ fontWeight: isPrioritySelected ? '600' : '500' }} />
           </ListItemButton>
         </ListItem>
       </List>
@@ -132,86 +146,92 @@ export default function App() {
   );
 
   return (
+    <Box sx={{ display: 'flex' }}>
+      <AppBar
+        position="fixed"
+        sx={{
+          width: { sm: `calc(100% - ${drawerWidth}px)` },
+          ml: { sm: `${drawerWidth}px` },
+          background: 'rgba(15, 23, 42, 0.8)',
+          backdropFilter: 'blur(20px)',
+          borderBottom: '1px solid rgba(255,255,255,0.06)',
+          boxShadow: 'none',
+        }}
+      >
+        <Toolbar>
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            edge="start"
+            onClick={handleDrawerToggle}
+            sx={{ mr: 2, display: { sm: 'none' } }}
+          >
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="h6" noWrap component="div" fontWeight="bold" sx={{ letterSpacing: 0.5 }}>
+            Notification Center
+          </Typography>
+        </Toolbar>
+      </AppBar>
+      <Box
+        component="nav"
+        sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
+        aria-label="mailbox folders"
+      >
+        <Drawer
+          variant="temporary"
+          open={mobileOpen}
+          onClose={handleDrawerToggle}
+          ModalProps={{
+            keepMounted: true, // Better open performance on mobile.
+          }}
+          sx={{
+            display: { xs: 'block', sm: 'none' },
+            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth, background: '#0b0f19', borderRight: '1px solid rgba(255,255,255,0.06)' },
+          }}
+        >
+          {drawer}
+        </Drawer>
+        <Drawer
+          variant="permanent"
+          sx={{
+            display: { xs: 'none', sm: 'block' },
+            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth, background: '#0b0f19', borderRight: '1px solid rgba(255,255,255,0.06)' },
+          }}
+          open
+        >
+          {drawer}
+        </Drawer>
+      </Box>
+      <Box
+        component="main"
+        sx={{
+          flexGrow: 1,
+          p: { xs: 2, sm: 3 },
+          width: { sm: `calc(100% - ${drawerWidth}px)` },
+          minHeight: '100vh',
+          mt: '64px',
+        }}
+      >
+        <ErrorBoundary>
+          <Routes>
+            <Route path="/" element={<AllNotifications />} />
+            <Route path="/priority" element={<PriorityInbox />} />
+          </Routes>
+        </ErrorBoundary>
+      </Box>
+    </Box>
+  );
+};
+
+export default function App() {
+  return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <NotificationProvider>
         <HashRouter>
           <RouteChangeLogger />
-          <Box sx={{ display: 'flex' }}>
-            <AppBar
-              position="fixed"
-              sx={{
-                width: { sm: `calc(100% - ${drawerWidth}px)` },
-                ml: { sm: `${drawerWidth}px` },
-                background: 'rgba(10, 14, 23, 0.7)',
-                backdropFilter: 'blur(20px)',
-                borderBottom: '1px solid rgba(255,255,255,0.06)',
-                boxShadow: 'none',
-              }}
-            >
-              <Toolbar>
-                <IconButton
-                  color="inherit"
-                  aria-label="open drawer"
-                  edge="start"
-                  onClick={handleDrawerToggle}
-                  sx={{ mr: 2, display: { sm: 'none' } }}
-                >
-                  <MenuIcon />
-                </IconButton>
-                <Typography variant="h6" noWrap component="div" fontWeight="bold">
-                  Notification Center
-                </Typography>
-              </Toolbar>
-            </AppBar>
-            <Box
-              component="nav"
-              sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
-              aria-label="mailbox folders"
-            >
-              <Drawer
-                variant="temporary"
-                open={mobileOpen}
-                onClose={handleDrawerToggle}
-                ModalProps={{
-                  keepMounted: true, // Better open performance on mobile.
-                }}
-                sx={{
-                  display: { xs: 'block', sm: 'none' },
-                  '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth, background: '#121824', borderRight: '1px solid rgba(255,255,255,0.08)' },
-                }}
-              >
-                {drawer}
-              </Drawer>
-              <Drawer
-                variant="permanent"
-                sx={{
-                  display: { xs: 'none', sm: 'block' },
-                  '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth, background: '#121824', borderRight: '1px solid rgba(255,255,255,0.08)' },
-                }}
-                open
-              >
-                {drawer}
-              </Drawer>
-            </Box>
-            <Box
-              component="main"
-              sx={{
-                flexGrow: 1,
-                p: 3,
-                width: { sm: `calc(100% - ${drawerWidth}px)` },
-                minHeight: '100vh',
-                mt: '64px',
-              }}
-            >
-              <ErrorBoundary>
-                <Routes>
-                  <Route path="/" element={<AllNotifications />} />
-                  <Route path="/priority" element={<PriorityInbox />} />
-                </Routes>
-              </ErrorBoundary>
-            </Box>
-          </Box>
+          <NavigationLayout />
         </HashRouter>
       </NotificationProvider>
     </ThemeProvider>

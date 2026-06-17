@@ -67,10 +67,10 @@ export class ErrorBoundary extends Component<Props, State> {
                 borderRadius: '8px',
                 px: 4,
                 py: 1.5,
-                background: 'linear-gradient(45deg, #2196f3, #00e5ff)',
+                background: 'linear-gradient(45deg, #0ea5e9, #0d9488)',
                 color: '#ffffff',
                 fontWeight: 'bold',
-                boxShadow: '0 4px 20px rgba(0,229,255,0.3)'
+                boxShadow: '0 4px 20px rgba(14, 165, 233, 0.3)'
               }}
             >
               Reload Application

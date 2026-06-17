@@ -35,25 +35,25 @@ export const PriorityInbox: React.FC = () => {
   if (loading && notifications.length === 0) {
     return (
       <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '60vh' }}>
-        <CircularProgress sx={{ color: '#00e5ff' }} />
+        <CircularProgress sx={{ color: '#0ea5e9' }} />
       </Box>
     );
   }
 
   return (
-    <Box className="page-enter" sx={{ p: 1, display: 'flex', flexDirection: 'column', gap: 3 }}>
+    <Box className="page-enter" sx={{ p: { xs: 0, sm: 1 }, display: 'flex', flexDirection: 'column', gap: 3 }}>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 2 }}>
         <Box>
           <Typography variant="h5" fontWeight="bold" sx={{ color: '#ffffff' }}>
             Priority Inbox
           </Typography>
-          <Typography variant="body2" sx={{ color: 'rgba(255, 255, 255, 0.6)', mt: 0.5 }}>
+          <Typography variant="body2" sx={{ color: 'text.secondary', mt: 0.5 }}>
             Top ranked announcements based on placement urgency and recency.
           </Typography>
         </Box>
 
-        <FormControl size="small" sx={{ minWidth: 150 }}>
-          <InputLabel id="top-limit-label" sx={{ color: '#aaa' }}>Show Top</InputLabel>
+        <FormControl size="small" sx={{ minWidth: 150, width: { xs: '100%', sm: 'auto' } }}>
+          <InputLabel id="top-limit-label" sx={{ color: 'text.secondary' }}>Show Top</InputLabel>
           <Select
             labelId="top-limit-label"
             id="top-limit-select"
@@ -64,7 +64,7 @@ export const PriorityInbox: React.FC = () => {
               color: '#fff',
               '.MuiOutlinedInput-notchedOutline': { borderColor: 'rgba(255,255,255,0.15)' },
               '&:hover .MuiOutlinedInput-notchedOutline': { borderColor: 'rgba(255,255,255,0.3)' },
-              '&.Mui-focused .MuiOutlinedInput-notchedOutline': { borderColor: '#00e5ff' }
+              '&.Mui-focused .MuiOutlinedInput-notchedOutline': { borderColor: '#0ea5e9' }
             }}
           >
             <MenuItem value={10}>Top 10</MenuItem>
@@ -82,128 +82,142 @@ export const PriorityInbox: React.FC = () => {
         borderRadius: '20px',
         boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.4)'
       }}>
-        <CardContent sx={{ p: 2 }}>
+        <CardContent sx={{ p: { xs: 1.5, sm: 2 } }}>
           {prioritizedList.length === 0 ? (
-            <Typography variant="body1" sx={{ color: '#aaa', textAlign: 'center', py: 4 }}>
+            <Typography variant="body1" sx={{ color: 'text.secondary', textAlign: 'center', py: 4 }}>
               No notifications available in the Priority Inbox.
             </Typography>
           ) : (
-            <List sx={{ width: '100%', p: 0 }}>
-              {prioritizedList.map((notif, index) => {
+            <List sx={{ width: '100%', p: 0, display: 'flex', flexDirection: 'column', gap: 1.5 }}>
+              {prioritizedList.map((notif) => {
                 const isRead = notif.isRead;
                 
                 // Set icons and colors based on Type
-                let icon = <CampaignIcon sx={{ color: '#00e5ff' }} />;
-                let borderLeftColor = '#90caf9'; // Event default
+                let icon = <CampaignIcon sx={{ color: '#0ea5e9' }} />;
+                let borderLeftColor = '#0ea5e9'; // Event default
                 let typeColor: 'info' | 'success' | 'warning' = 'info';
 
                 if (notif.type.toLowerCase() === 'placement') {
-                  icon = <WorkIcon sx={{ color: '#00e676' }} />;
-                  borderLeftColor = '#00e676';
+                  icon = <WorkIcon sx={{ color: '#10b981' }} />;
+                  borderLeftColor = '#10b981';
                   typeColor = 'success';
                 } else if (notif.type.toLowerCase() === 'result') {
-                  icon = <AssessmentIcon sx={{ color: '#ffb74d' }} />;
-                  borderLeftColor = '#ffb74d';
+                  icon = <AssessmentIcon sx={{ color: '#f59e0b' }} />;
+                  borderLeftColor = '#f59e0b';
                   typeColor = 'warning';
                 } else if (notif.type.toLowerCase() === 'event') {
-                  icon = <EventIcon sx={{ color: '#29b6f6' }} />;
-                  borderLeftColor = '#29b6f6';
+                  icon = <EventIcon sx={{ color: '#0ea5e9' }} />;
+                  borderLeftColor = '#0ea5e9';
                   typeColor = 'info';
                 }
 
                 return (
-                  <React.Fragment key={notif.id}>
-                    <ListItem
-                      onClick={() => markAsViewed(notif.id)}
-                      sx={{
-                        display: 'flex',
-                        flexDirection: { xs: 'column', sm: 'row' },
-                        alignItems: { xs: 'flex-start', sm: 'center' },
-                        gap: 2,
-                        cursor: 'pointer',
-                        borderRadius: '12px',
-                        mb: index === prioritizedList.length - 1 ? 0 : 1.5,
-                        p: 2,
-                        transition: 'all 0.2s ease',
-                        borderLeft: `6px solid ${isRead ? 'rgba(255,255,255,0.1)' : borderLeftColor}`,
-                        background: isRead ? 'rgba(255,255,255,0.02)' : 'rgba(255,255,255,0.05)',
-                        opacity: isRead ? 0.6 : 1,
-                        boxShadow: isRead ? 'none' : '0 4px 15px rgba(0, 0, 0, 0.2)',
-                        '&:hover': {
-                          background: isRead ? 'rgba(255,255,255,0.04)' : 'rgba(255,255,255,0.08)',
-                          transform: 'translateX(4px)'
-                        }
-                      }}
-                    >
-                      <ListItemIcon sx={{ minWidth: 40 }}>
-                        {icon}
-                      </ListItemIcon>
+                  <ListItem
+                    key={notif.id}
+                    onClick={() => markAsViewed(notif.id)}
+                    sx={{
+                      display: 'flex',
+                      flexDirection: 'row',
+                      alignItems: 'flex-start',
+                      gap: { xs: 1.5, sm: 2 },
+                      cursor: 'pointer',
+                      borderRadius: '12px',
+                      p: { xs: 1.5, sm: 2 },
+                      transition: 'all 0.2s ease',
+                      borderLeft: `5px solid ${isRead ? 'rgba(255,255,255,0.15)' : borderLeftColor}`,
+                      background: isRead ? 'rgba(30, 41, 59, 0.4)' : 'rgba(30, 41, 59, 0.8)',
+                      backdropFilter: 'blur(10px)',
+                      borderTop: '1px solid rgba(255, 255, 255, 0.05)',
+                      borderRight: '1px solid rgba(255, 255, 255, 0.05)',
+                      borderBottom: '1px solid rgba(255, 255, 255, 0.05)',
+                      opacity: isRead ? 0.7 : 1,
+                      boxShadow: isRead ? 'none' : '0 4px 12px rgba(0, 0, 0, 0.15)',
+                      '&:hover': {
+                        background: 'rgba(30, 41, 59, 0.95)',
+                        transform: 'translateX(4px)'
+                      }
+                    }}
+                  >
+                    <ListItemIcon sx={{ minWidth: { xs: 30, sm: 40 }, mt: 0.5 }}>
+                      {icon}
+                    </ListItemIcon>
 
-                      <ListItemText
-                        primary={
-                          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, flexWrap: 'wrap', mb: 0.5 }}>
-                            <Chip 
-                              label={notif.type} 
-                              size="small" 
-                              color={typeColor}
-                              variant={isRead ? 'outlined' : 'filled'}
-                              sx={{ fontWeight: 'bold', height: 20, fontSize: '0.75rem' }} 
+                    <ListItemText
+                      sx={{ m: 0 }}
+                      primary={
+                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, flexWrap: 'wrap', mb: 1 }}>
+                          <Chip 
+                            label={notif.type} 
+                            size="small" 
+                            color={typeColor}
+                            variant={isRead ? 'outlined' : 'filled'}
+                            sx={{ fontWeight: 'bold', height: 20, fontSize: '0.7rem' }} 
+                          />
+                          
+                          <Typography variant="caption" sx={{ color: 'text.secondary' }}>
+                            {notif.timestamp}
+                          </Typography>
+
+                          <Box sx={{ flexGrow: 1 }} />
+                          
+                          {/* Unread indicator */}
+                          {!isRead && (
+                            <Chip
+                              icon={<CircleIcon sx={{ fontSize: '8px !important', color: '#ef4444' }} />}
+                              label="Unread"
+                              size="small"
+                              sx={{
+                                background: 'rgba(239, 68, 68, 0.1)',
+                                color: '#ef4444',
+                                fontSize: '0.65rem',
+                                fontWeight: 'bold',
+                                border: '1px solid rgba(239, 68, 68, 0.2)',
+                                height: 18
+                              }}
                             />
-                            
-                            <Typography variant="caption" sx={{ color: 'rgba(255, 255, 255, 0.4)' }}>
-                              {notif.timestamp}
-                            </Typography>
-
-                            <Box sx={{ flexGrow: 1 }} />
-                            
-                            {/* Unread indicator */}
-                            {!isRead && (
-                              <Chip
-                                icon={<CircleIcon sx={{ fontSize: '8px !important', color: '#ff1744' }} />}
-                                label="Unread"
-                                size="small"
-                                sx={{
-                                  background: 'rgba(255, 23, 68, 0.1)',
-                                  color: '#ff1744',
-                                  fontSize: '0.7rem',
-                                  fontWeight: 'bold',
-                                  border: '1px solid rgba(255, 23, 68, 0.2)'
-                                }}
-                              />
-                            )}
-                          </Box>
-                        }
-                        secondary={
+                          )}
+                        </Box>
+                      }
+                      secondary={
+                        <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, alignItems: { xs: 'stretch', sm: 'flex-start' }, justifyContent: 'space-between', gap: 1.5 }}>
                           <Typography 
-                            variant="body1" 
+                            variant="body2" 
                             sx={{ 
-                              color: isRead ? 'rgba(255, 255, 255, 0.5)' : '#ffffff',
-                              fontWeight: isRead ? 'normal' : '500' 
+                              color: isRead ? 'text.secondary' : 'text.primary',
+                              fontWeight: isRead ? 'normal' : '500',
+                              flex: 1,
+                              lineHeight: 1.5
                             }}
                           >
                             {notif.message}
                           </Typography>
-                        }
-                      />
 
-                      <Box sx={{ alignSelf: { xs: 'flex-end', sm: 'center' } }}>
-                        {isRead ? (
-                          <CheckCircleOutlineIcon sx={{ color: 'rgba(255,255,255,0.3)' }} />
-                        ) : (
-                          <Typography variant="caption" sx={{ 
-                            background: 'rgba(255,255,255,0.05)',
-                            padding: '3px 8px',
-                            borderRadius: '4px',
-                            border: '1px solid rgba(255,255,255,0.1)',
-                            color: '#00e5ff',
-                            fontWeight: 'bold'
+                          <Box sx={{ 
+                            alignSelf: { xs: 'flex-start', sm: 'center' }, 
+                            mt: { xs: 0.5, sm: 0 },
+                            display: 'flex',
+                            alignItems: 'center' 
                           }}>
-                            Score: {notif.priorityScore}
-                          </Typography>
-                        )}
-                      </Box>
-                    </ListItem>
-                  </React.Fragment>
+                            {isRead ? (
+                              <CheckCircleOutlineIcon sx={{ color: 'text.secondary', fontSize: 20 }} />
+                            ) : (
+                              <Typography variant="caption" sx={{ 
+                                background: 'rgba(14, 165, 233, 0.1)',
+                                padding: '3px 8px',
+                                borderRadius: '6px',
+                                border: '1px solid rgba(14, 165, 233, 0.2)',
+                                color: '#0ea5e9',
+                                fontWeight: 'bold',
+                                whiteSpace: 'nowrap'
+                              }}>
+                                Score: {notif.priorityScore}
+                              </Typography>
+                            )}
+                          </Box>
+                        </Box>
+                      }
+                    />
+                  </ListItem>
                 );
               })}
             </List>

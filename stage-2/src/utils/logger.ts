@@ -4,7 +4,7 @@ export const Logger = {
   info: (message: string, data?: any) => {
     console.log(
       `%c[INFO] ${new Date().toISOString()} - ${message}`,
-      'color: #00e5ff; font-weight: bold; background: #121212; padding: 2px 5px; border-radius: 3px;',
+      'color: #0ea5e9; font-weight: bold; background: #121212; padding: 2px 5px; border-radius: 3px;',
       data !== undefined ? data : ''
     );
   },
