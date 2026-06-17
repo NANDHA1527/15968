@@ -127,6 +127,19 @@ export const NotificationProvider: React.FC<{ children: React.ReactNode }> = ({ 
     fetchAll();
   }, [fetchAll]);
 
+  // Set up real-time background polling every 8 seconds to synchronize notifications from the live API
+  useEffect(() => {
+    const interval = setInterval(() => {
+      getNotifications().then((data) => {
+        setRawList(data);
+      }).catch((err) => {
+        loggingMiddleware.logError('Real-time polling sync failed. Retaining current notifications.', err.message || err);
+      });
+    }, 8000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   // Map raw list to structured notifications
   const notifications = useMemo<Notification[]>(() => {
     return rawList.map((raw) => {
