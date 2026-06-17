@@ -5,6 +5,7 @@
   "private": true,
   "scripts": {
     "install:all": "npm install --prefix stage-1 && npm install --prefix stage-2 --legacy-peer-deps",
+    "build": "npm run build --prefix stage-2",
     "dev": "npm run dev --prefix stage-2",
     "start:cli": "npm start --prefix stage-1"
   }
